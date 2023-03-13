@@ -1,11 +1,14 @@
 
 // import LoginPage from "../components/loginPage"
-import HomePage from "../components/HomePage";
-import TrendingPage from "../components/TrendingPage"
+// import HomePage from "../components/HomePage";
+// import TrendingPage from "../components/TrendingPage"
 import GamingPage from "../components/Gaming";
 import VideoPage from "../components/VideoPage";
 import ProtectedRoute from "./ProtectedRoute";
 import SavedVideos from "../components/SaveVideos";
+import HomeRoute from "./HomeRoute";
+import TrendingRoute from "./TrendingVideosRoute";
+import GamingRoute from "./GamingVideosRoute";
 // import ProtectedLoginRoute from "./ProtectedLoginRoute";
 // import { ThemeStore } from "../../common/stores";
 
@@ -29,11 +32,11 @@ import SavedVideos from "../components/SaveVideos";
 
 
 const NxtWatch = [
-    <ProtectedRoute exact path="/trending" component={TrendingPage}/>,
-    <ProtectedRoute exact path="/gaming" component={GamingPage}/>,
+    <ProtectedRoute exact path="/trending" component={TrendingRoute}/>,
+    <ProtectedRoute exact path="/gaming" component={GamingRoute}/>,
     <ProtectedRoute exact path="/saved-videos" component={SavedVideos}/>,
     <ProtectedRoute exact path="/videos/:id" component={VideoPage}/>,
-    <ProtectedRoute exact path="/" component={HomePage}/>
+    <ProtectedRoute exact path="/" component={HomeRoute}/>
 ]
 
 export default NxtWatch;

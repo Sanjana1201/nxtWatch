@@ -1,6 +1,8 @@
 import { inject, observer } from "mobx-react";
 import { useEffect } from "react";
+import Button from "../../../common/components/Button";
 import Loader from "../../../common/components/LoadingIcon";
+import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import SomethingWentWrongPage from "../../../common/components/SomethingWentWrong";
 import { ScreenType } from "../../../common/enums/LoadingStateEnum";
 import TrendingStore from "../../stores/DataStore/TrendingDataStore";
@@ -10,16 +12,31 @@ import NavbarComponent from "../Navbar";
 import SideBarComponent from "../SideBar";
 import VideoListContainer from "../VideoListView";
 import {TrendingComponentWrapper} from "./styledComponents"
+import TrendingPageComponent from "./TrendingPageComponent";
 
 
-const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,ThemeStore}) =>{
+const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,ThemeStore,...props}) =>{
 
     useEffect(()=>{
-        TrendingStore.getTrendingData();
+        props.getVideo();
     },[])
 
-    const renderTrendingData =() =>{
-        return <VideoListContainer details={TrendingStore.currData}/>
+    const renderInitialUI = () =>{
+        return <></>
+    }
+    const renderSuccessUI = () =>{
+        return(
+            <TrendingPageComponent details={props.TrendingVideosList} {...props}/>
+        )
+    }
+
+    const getTrendingVideosData =() =>{
+        return(
+            <>
+            <SomethingWentWrongPage />
+            <button onClick={props.getVideo()} >Retry</button>
+            </>
+        )
     }
 
     return (
@@ -27,7 +44,15 @@ const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,The
             <NavbarComponent />
             <ContentWrapper>
                 <SideBarComponent />
-                {TrendingStore.currStatus===ScreenType.Loading && <Loader />}
+                <LoadingWrapper 
+                apiStatus={props.apiStatus}
+                apiError={props.apiError}
+                onInitial={renderInitialUI}
+                onSuccess={renderSuccessUI}
+                onRetry={getTrendingVideosData}
+                
+                />
+                {/* {TrendingStore.currStatus===ScreenType.Loading && <Loader />}
             {
                 TrendingStore.currStatus===ScreenType.Success && <PageContentContainer>
                 <TrendingComponentWrapper>
@@ -36,7 +61,7 @@ const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,The
                 </TrendingComponentWrapper>
             </PageContentContainer>
             }
-            {TrendingStore.currStatus===ScreenType.Failure && <SomethingWentWrongPage />}
+            {TrendingStore.currStatus===ScreenType.Failure && <SomethingWentWrongPage />} */}
             </ContentWrapper>
         </>
     )

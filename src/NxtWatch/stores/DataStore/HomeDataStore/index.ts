@@ -1,39 +1,52 @@
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import { API_STATUS } from "../../../../common/enums/LoadingStateEnum";
 import { HomeDataFetchApi } from "../../../services/HomeDataService";
-import { HomeVideoModel } from "../../models/VideoModels/HomeVideosModel";
+import HomeModel from "../../models/VideoModels/HomeVideosModel";
+import { HomeVideoModel } from "../../types";
 
 
 class DataStore{
 
-    @observable currStatus: string;
+    @observable currStatus: API_STATUS;
     @observable currError:string;
-    @observable currData: Array<HomeVideoModel>;
-    @observable showBanner:boolean;
+    @observable homeVideosData: Array<HomeVideoModel>;
+    @observable inputValue: string;
 
-    constructor(props:any){
+    constructor(){
         this.currStatus = API_STATUS.INITIAL;
         this.currError = "";
-        this.currData = [];
-        // this.currData = HomeVideoModel[];
-        this.showBanner = true;
+        this.homeVideosData = [];
+        this.inputValue = "";
     }
 
-    @action GetHomeData = (inputValue:string) =>{
+    @action setInputValue =(currValue:string) =>{
+        this.inputValue = currValue;
+    }
+
+    @action GetHomeData = () =>{
         this.currStatus = API_STATUS.LOADING;
-        HomeDataFetchApi(inputValue)
+        HomeDataFetchApi(this.inputValue)
         .then((response) => response.json())
         .then((data) =>{
+            this.homeVideosData = data.videos.map((eachData:HomeVideoModel)=>{
+                return new HomeModel(eachData);
+            });
             this.currStatus=API_STATUS.SUCCESS;
-            this.currData = data.videos;
         })
         .catch((error)=>{
             this.currStatus=API_STATUS.FAILURE;
         })
     } 
 
-    @action hideBanner = () =>{
-        return this.showBanner = false;
+    @computed get filterData(){
+        return this.homeVideosData.filter((eachData)=>{
+            if(eachData.title.toLowerCase().includes(this.inputValue.toLowerCase())){
+                return true;
+            }
+            else{
+                return false;
+            }
+        })
     }
 }
 

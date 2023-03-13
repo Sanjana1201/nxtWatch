@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { API_STATUS } from '../../enums/LoadingStateEnum';
-import Button from '../Button';
 import Loader from '../LoadingIcon';
 
 // export enum API_STATUS {
@@ -21,7 +20,7 @@ interface Props {
 class LoadingWrapper extends Component<Props> {
 
     renderFailureView = () => {
-        const { apiError, onRetry } = this.props;
+        const { onRetry } = this.props;
         return (<div>
             {onRetry()}
             {/* <p>{apiError}</p>
@@ -34,7 +33,7 @@ class LoadingWrapper extends Component<Props> {
     }
 
     renderRespectiveUI = () => {
-        const { apiStatus, onSuccess, onInitial, onRetry } = this.props
+        const { apiStatus, onSuccess, onInitial } = this.props
         const { INITIAL, LOADING, SUCCESS, FAILURE } = API_STATUS
 
         switch  (apiStatus) {

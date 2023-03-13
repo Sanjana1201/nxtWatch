@@ -1,25 +1,40 @@
 import { action, observable } from "mobx";
-import { ScreenType } from "../../../../common/enums/LoadingStateEnum";
+import { API_STATUS } from "../../../../common/enums/LoadingStateEnum";
 import { TrendingDataApi } from "../../../services/TrendingDataService";
+import TrendingModel from "../../models/VideoModels/TrendingVideosModel";
+import { TrendingVideoModel } from "../../types";
 
 class TrendingDataStore{
-    @observable currStatus = ScreenType.Loading;
-    @observable currData = [];
 
-    @action getTrendingData(){
+    @observable currStatus :  API_STATUS;
+    @observable currError : string;
+    @observable currData : Array<TrendingVideoModel>;
+
+    constructor(){
+        this.currStatus = API_STATUS.INITIAL;
+        this.currError = "";
+        this.currData = [];
+    }
+
+    @action getTrendingData = ()=>{
+        this.currStatus = API_STATUS.LOADING;
         TrendingDataApi()
         .then((response)=>response.json())
         .then((data)=>{
             if(data.videos===undefined){
-                this.currStatus = ScreenType.Failure;
+                this.currStatus = API_STATUS.FAILURE;
             }
             else{
-                this.currData =data.videos;
-                this.currStatus = ScreenType.Success;
+                this.currData = data.videos.map((eachVideo:TrendingVideoModel)=>{
+                    return new TrendingModel(eachVideo);
+                })
+                this.currStatus = API_STATUS.SUCCESS;
             }
         })
         .catch((error)=>{
-            this.currStatus = ScreenType.Failure;
+            console.log("error",error);
+            this.currError = error;
+            this.currStatus = API_STATUS.FAILURE;
         })
     }
 }

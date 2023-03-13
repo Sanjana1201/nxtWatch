@@ -1,6 +1,6 @@
-import { ChannelModels, HomeVideoModel } from "../../../types";
+import { ChannelModels, TrendingVideoModel } from "../../../types";
 
-class HomeModel{
+class TrendingModel{
     id: string;
     title: string;
     thumbnail_url: string;
@@ -8,7 +8,7 @@ class HomeModel{
     view_count: string;
     published_at: string;
   
-    constructor(country:HomeVideoModel) {
+    constructor(country:TrendingVideoModel) {
         const { id, title, thumbnail_url, channel, view_count, published_at } = country;
         this.id = id;
         this.title = title;
@@ -19,5 +19,6 @@ class HomeModel{
     }
   }
   
-  export default HomeModel;
+  export default TrendingModel;
   
+
