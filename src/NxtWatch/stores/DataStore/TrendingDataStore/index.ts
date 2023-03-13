@@ -1,9 +1,10 @@
 import { action, observable } from "mobx";
-import { ScreenType } from "../../../../common/enums/LoadingStateEnum";
+import { API_STATUS } from "../../../../common/enums/LoadingStateEnum";
 import { TrendingDataApi } from "../../../services/TrendingDataService";
 
 class TrendingDataStore{
-    @observable currStatus = ScreenType.Loading;
+    @observable currStatus = API_STATUS.INITIAL;
+    @observable currError = "";
     @observable currData = [];
 
     @action getTrendingData(){
@@ -11,15 +12,15 @@ class TrendingDataStore{
         .then((response)=>response.json())
         .then((data)=>{
             if(data.videos===undefined){
-                this.currStatus = ScreenType.Failure;
+                this.currStatus = API_STATUS.FAILURE;
             }
             else{
                 this.currData =data.videos;
-                this.currStatus = ScreenType.Success;
+                this.currStatus = API_STATUS.SUCCESS;
             }
         })
         .catch((error)=>{
-            this.currStatus = ScreenType.Failure;
+            this.currStatus = API_STATUS.FAILURE;
         })
     }
 }

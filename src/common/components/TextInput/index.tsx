@@ -4,6 +4,7 @@ import { CustomInputBox, TextInputContainer, TextLabel } from './styledComponent
 interface Props {
     label: string;
     placeholder: string;
+    type: string;
     onChange: (e: any) => void;
 }
 
@@ -16,11 +17,11 @@ class TextInput extends Component<Props> {
     }
 
     render() {
-        const {  label, placeholder } = this.props;
+        const {  label, placeholder,type } = this.props;
         return (
             <TextInputContainer>
                 <TextLabel htmlFor="input-el">{label}</TextLabel>
-                <CustomInputBox name="input-el" type="text" placeholder={placeholder} onChange={this.onChange}/>
+                <CustomInputBox name="input-el" type={type} placeholder={placeholder} onChange={this.onChange}/>
             </TextInputContainer>
         );
     }

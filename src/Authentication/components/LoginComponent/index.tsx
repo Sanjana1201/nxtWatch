@@ -12,27 +12,12 @@ import { LoginComponentContainer } from './styledComponents';
 interface Props {
     onClickLogin: (requestObject: LoginRequestObject) => void;
     AuthStore: AuthDataStore
+    onClickError: () => string;
 }
 
 @inject('AuthStore')
 @observer
 class LoginComponent extends Component<Props> {
-    @observable username: string;
-    @observable password: string;
-
-    constructor(props: Props) {
-        super(props);
-        this.username = ""
-        this.password = "";
-    }
-
-    onChangeUserName = (value: string) => {
-        this.username = value;
-    };
-
-    onChangePassword = (value: string) => {
-        this.password =value
-    }
 
     onClickLogin = (requestObject: LoginRequestObject) => {
         // console.log(this.props);
@@ -45,11 +30,11 @@ class LoginComponent extends Component<Props> {
     } 
 
     renderInitial =() =>{
-        return <LoginAppComponent handleLoginClick={this.onClickLogin}/>
+        return <LoginAppComponent handleLoginClick={this.onClickLogin} errorMsg = {this.props.onClickError()} {...this.props}/>
     }
 
     renderRetry = () =>{
-
+        return <LoginAppComponent handleLoginClick={this.onClickLogin} errorMsg = {this.props.onClickError()} {...this.props} />
     }
 
     render() {

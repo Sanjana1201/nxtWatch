@@ -1,14 +1,18 @@
-
 import LightModeIcon from '../../../icons/nxtWaveIcon/lightModeIcon';
-import MyHomeDataStore from '../../../stores/DataStore/HomeDataStore';
 import { CustomWhiteBgButton } from '../../Navbar/styledComponents';
 import { VideoButtons } from '../../VideoPage/styledComponents';
 import {BannerWrapper} from './styledComponents'
 
-const HomePageBanner = () =>{
+interface Props{
+    bannerStatus: boolean,
+    bannerFunc: () =>void
+}
+
+const HomePageBanner = (props:Props) =>{
 
     const handleBanner = () =>{
-        MyHomeDataStore.hideBanner();
+        const {bannerFunc}  = props;
+        bannerFunc();
     }
 
     return (

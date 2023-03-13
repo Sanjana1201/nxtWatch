@@ -17,9 +17,15 @@ class LoginRoute extends Component<Props> {
         logInUser(requestObject);
     }
 
+    handleError = () =>{
+        const {AuthStore} = this.props;
+        const {failureMsg} = AuthStore;
+        return failureMsg;
+    }
+
     render() {
         return (
-            <LoginComponent onClickLogin={this.onClickLogin} {...this.props}/>
+            <LoginComponent onClickLogin={this.onClickLogin} {...this.props} onClickError={this.handleError}/>
         );
     }
 }

@@ -1,24 +1,30 @@
 import { observable } from "mobx";
+import { inject, observer } from "mobx-react";
 import { Component, ReactNode } from "react";
 import TextInput from "../../../../common/components/TextInput";
 import LightModeIcon from "../../../../NxtWatch/icons/nxtWaveIcon/lightModeIcon";
-import { LoginRequestObject } from "../../../stores/AuthStore";
+import AuthDataStore, { LoginRequestObject } from "../../../stores/AuthStore";
 import { CustomInputBox, LoginButton, LoginDiv, LoginFieldsContainer, LoginWrapper } from "./styledComponents";
 
 interface Props{
     handleLoginClick: (requestObject:LoginRequestObject) => void;
+    AuthStore: AuthDataStore;
+    errorMsg: string;
 }
 
-
+@inject('AuthStore')
+@observer
 class LoginAppComponent extends Component<Props>{
 
     @observable username: string;
     @observable password: string;
+    @observable showPassword: boolean;
 
     constructor(props:any) {
         super(props);
         this.username = ""
         this.password = "";
+        this.showPassword = false;
     }
 
     onChangeUserName = (value: string) => {
@@ -40,6 +46,10 @@ class LoginAppComponent extends Component<Props>{
         handleLoginClick(requestObject)
     }
 
+    handlePassword = () =>{
+        this.showPassword=!this.showPassword
+    }
+
 
     render(): ReactNode {
         return(
@@ -49,21 +59,14 @@ class LoginAppComponent extends Component<Props>{
                     <LightModeIcon />
                     <LoginFieldsContainer>
                         <div>
-                            <TextInput placeholder='Enter your name' label="USER NAME" onChange={this.onChangeUserName}/>
+                            <TextInput placeholder='Enter your name' label="USER NAME" onChange={this.onChangeUserName} type = "text"/>
                         </div>
                         <div>
-                            <TextInput placeholder='Enter your password' label="PASSWORD" onChange={this.onChangePassword}/>
+                            <TextInput placeholder='Enter your password' label="PASSWORD" onChange={this.onChangePassword} type={this.showPassword? "text":"password"}/>
                         </div>
                     </LoginFieldsContainer>
-                    <p><input type="checkbox" id="MyCheckbox" onChange = {() =>{
-                    const curr = (document.getElementById("MyCheckbox") as HTMLInputElement).checked;
-                    if(curr){
-                        (document.getElementById("loginPassword")as HTMLInputElement).type = "text";
-                    }
-                    else{
-                        (document.getElementById("loginPassword")as HTMLInputElement).type = "password";
-                    }
-                }} />Show Password</p>
+                    <p><input type="checkbox" id="MyCheckbox" onChange = {this.handlePassword} />Show Password</p>
+                    {this.props.errorMsg===""? <></>:<>{this.props.errorMsg}</>}
                 <LoginButton type="button" onClick={this.onClickLogin}>Login</LoginButton>
                 </LoginDiv>
             </LoginWrapper>
