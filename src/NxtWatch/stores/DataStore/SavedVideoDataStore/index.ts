@@ -1,34 +1,52 @@
 import { action, observable } from "mobx";
-import { ScreenType } from "../../../../common/enums/LoadingStateEnum";
+import { API_STATUS } from "../../../../common/enums/LoadingStateEnum";
+import { VideoModel } from "../../types";
 
 class SavedVideoDataStore{
 
-    @observable currStatus = ScreenType.Loading;
-    @observable currData:any = [];
+    @observable currStatus : API_STATUS;
+    @observable currError: string;
+    @observable currData: Array<VideoModel>;
 
-    @action addSavedVideo = (videoData:any) =>{
+    constructor(){
+        this.currStatus = API_STATUS.INITIAL;
+        this.currData = [];
+        this.currError = "";
+    }
+
+    @action addSavedVideo = (videoData:VideoModel) =>{
         const currSavedVideo = videoData;
         this.currData = [...this.currData,currSavedVideo];
     }
 
     @action getSavedVideos = () =>{
+        if(this.currData.length >0)
+            this.currStatus = API_STATUS.SUCCESS;
+        else
+            this.currStatus = API_STATUS.FAILURE;
         return this.currData;
     }
 
-    @action findSavedVideo = (videoId:any) =>{
-        return this.currData.find((eachData:any)=>{
+    @action findSavedVideo = (videoId:string) =>{
+        const findResult =  this.currData.find((eachData:any)=>{
             const {id} = eachData;
             if(id===videoId){
                 return true;
             }
             return false;
-        })
+        });
+        if(findResult===undefined){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
-    @action removeSavedVideo =(videoData:any)=>{
+    @action removeSavedVideo =(videoId:string)=>{
         const filteredData =  this.currData.filter((eachData:any)=>{
             const {id} = eachData;
-            if(id ===videoData.id){
+            if(id ===videoId){
                 return false;
             }
             else{

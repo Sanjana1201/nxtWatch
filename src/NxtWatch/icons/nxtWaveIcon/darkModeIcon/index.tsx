@@ -1,9 +1,11 @@
-const LightModeIcon = () =>{
+import { CustomNxtWaveLogo } from "../lightModeIcon/styledComponents";
+
+const DarkModeIcon = () =>{
     return (
         <>
-            <img src= "https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png" alt = "NxtWave-Logo" />
+            <CustomNxtWaveLogo src= "https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png" alt = "NxtWave-Logo" />
         </>
     )
 }
 
-export default LightModeIcon;
+export default DarkModeIcon;

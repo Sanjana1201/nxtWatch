@@ -18,6 +18,7 @@ export const ViewsTimeDiv = styled.div`
 export const HomeVideoCard = styled.div`
     width: 250px;
     padding: 10px;
+    color: ${props => props.theme.textDark}
 `
 
 export const HomeVideoContent = styled.div`

@@ -1,13 +1,17 @@
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { DarkModeColors, LightModeColors } from '../../../common/constants/colors';
+import MyTheme from '../../../common/stores/ThemeStore';
 import LoginComponent from '../../components/LoginComponent';
 import AuthDataStore, { LoginRequestObject } from '../../stores/AuthStore';
 
 interface Props{
     AuthStore: AuthDataStore;
+    ThemeStore: MyTheme;
 }
 
-@inject('AuthStore')
+@inject('AuthStore','ThemeStore')
 @observer
 class LoginRoute extends Component<Props> {
 
@@ -24,8 +28,13 @@ class LoginRoute extends Component<Props> {
     }
 
     render() {
+        console.log(this.props.ThemeStore.theme);
         return (
-            <LoginComponent onClickLogin={this.onClickLogin} {...this.props} onClickError={this.handleError}/>
+            <>
+                <ThemeProvider theme={this.props.ThemeStore.theme==='Light'? LightModeColors:DarkModeColors}>
+                <LoginComponent onClickLogin={this.onClickLogin} {...this.props} onClickError={this.handleError}/>
+                </ThemeProvider>
+            </>
         );
     }
 }

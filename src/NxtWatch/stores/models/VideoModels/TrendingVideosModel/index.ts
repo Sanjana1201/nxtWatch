@@ -1,6 +1,6 @@
 import { ChannelModels, TrendingVideoModel } from "../../../types";
 
-class HomeModel{
+class TrendingModel{
     id: string;
     title: string;
     thumbnail_url: string;
@@ -19,6 +19,6 @@ class HomeModel{
     }
   }
   
-  export default HomeModel;
+  export default TrendingModel;
   
 

@@ -1,40 +1,39 @@
 import { inject, observer } from "mobx-react";
 import { useEffect } from "react";
-import Button from "../../../common/components/Button";
-import Loader from "../../../common/components/LoadingIcon";
+import AuthDataStore from "../../../Authentication/stores/AuthStore";
 import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import SomethingWentWrongPage from "../../../common/components/SomethingWentWrong";
-import { ScreenType } from "../../../common/enums/LoadingStateEnum";
-import TrendingStore from "../../stores/DataStore/TrendingDataStore";
-import NxtWatchHeading from "../HeadingContainer";
-import { ContentWrapper, PageContentContainer } from "../HomePage/styledComponents";
+import { API_STATUS } from "../../../common/enums/LoadingStateEnum";
+import MyTheme from "../../../common/stores/ThemeStore";
+import { TrendingVideoModel } from "../../stores/types";
+import { ContentWrapper } from "../HomePage/styledComponents";
 import NavbarComponent from "../Navbar";
 import SideBarComponent from "../SideBar";
-import VideoListContainer from "../VideoListView";
-import {TrendingComponentWrapper} from "./styledComponents"
+import TrendingPageComponent from "./TrendingPageComponent";
 
 
-const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,ThemeStore,...props}) =>{
+interface Props{
+    AuthStore : AuthDataStore,
+    ThemeStore : MyTheme,
+    apiStatus : API_STATUS,
+    apiError : string,
+    getVideo:() =>void,
+    TrendingVideosList: Array<TrendingVideoModel>
+}
+
+const TrendingVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
 
     useEffect(()=>{
         props.getVideo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
-    const renderTrendingData =() =>{
-        return <VideoListContainer details={TrendingStore.currData}/>
-    }
 
     const renderInitialUI = () =>{
         return <></>
     }
     const renderSuccessUI = () =>{
         return(
-            <PageContentContainer>
-                <TrendingComponentWrapper>
-                    <NxtWatchHeading title="Trending"/>
-                    {renderTrendingData()}
-                </TrendingComponentWrapper>
-            </PageContentContainer>
+            <TrendingPageComponent details={props.TrendingVideosList} {...props}/>
         )
     }
 
@@ -42,7 +41,7 @@ const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,The
         return(
             <>
             <SomethingWentWrongPage />
-            <button onClick={props.getVideo()} >Retry</button>
+            <button onClick={props.getVideo} >Retry</button>
             </>
         )
     }
@@ -58,18 +57,7 @@ const TrendingVideos = inject('AuthStore','ThemeStore')(observer(({AuthStore,The
                 onInitial={renderInitialUI}
                 onSuccess={renderSuccessUI}
                 onRetry={getTrendingVideosData}
-                
                 />
-                {/* {TrendingStore.currStatus===ScreenType.Loading && <Loader />}
-            {
-                TrendingStore.currStatus===ScreenType.Success && <PageContentContainer>
-                <TrendingComponentWrapper>
-                    <NxtWatchHeading title="Trending"/>
-                    {renderTrendingData()}
-                </TrendingComponentWrapper>
-            </PageContentContainer>
-            }
-            {TrendingStore.currStatus===ScreenType.Failure && <SomethingWentWrongPage />} */}
             </ContentWrapper>
         </>
     )

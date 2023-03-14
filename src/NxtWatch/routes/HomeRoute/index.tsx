@@ -1,9 +1,8 @@
 import { inject, observer } from "mobx-react";
-import { Component, ReactNode } from "react";
+import { Component } from "react";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
 import MyTheme from "../../../common/stores/ThemeStore";
 import HomePageComponent from "../../components/HomePage";
-import { HomeVideoContent } from "../../components/HomePage/HomeVideoCard/styleComponents";
 import MyHomeDataStore from "../../stores/DataStore/HomeDataStore";
 
 interface Props{

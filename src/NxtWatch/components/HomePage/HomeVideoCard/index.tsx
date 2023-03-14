@@ -1,4 +1,9 @@
 import {formatDistanceToNow} from 'date-fns'
+import { inject, observer } from 'mobx-react'
+import { ThemeProvider } from 'styled-components'
+import AuthDataStore from '../../../../Authentication/stores/AuthStore'
+import { DarkModeColors, LightModeColors } from '../../../../common/constants/colors'
+import MyTheme from '../../../../common/stores/ThemeStore'
 import {PeriodDivSymbol,ViewsTimeDiv,HomeVideoCard,HomeVideoContent,ThumbnailImage,CardImage} from './styleComponents'
 
 interface PropTypes{
@@ -14,13 +19,16 @@ interface PropTypes{
 }
 
 interface Props{
-    details: PropTypes
+    details: PropTypes,
+    AuthStore: AuthDataStore,
+    ThemeStore: MyTheme
 }
 
-const HomeVideoCards =(props:Props) =>{
+const HomeVideoCards =inject('AuthStore','ThemeStore')(observer((props:Props) =>{
     const {title,thumbnail_url,channel,view_count,published_at} = props.details;
     const {name,profile_image_url} =channel;
     return (
+        <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
         <HomeVideoCard>
         <div>
             <CardImage src = {thumbnail_url} alt = "Thumbnail" />
@@ -38,6 +46,7 @@ const HomeVideoCards =(props:Props) =>{
             </div>
         </HomeVideoContent>
         </HomeVideoCard>
+        </ThemeProvider>
     )
-}
+}))
 export default HomeVideoCards;

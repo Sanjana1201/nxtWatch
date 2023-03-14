@@ -1,8 +1,9 @@
+import { inject, observer } from "mobx-react";
 import { StyledLink } from "../HomePage/styledComponents";
 import { VideoListWrapper } from "./styledComponents";
 import NxtWatchVideoCard from "./VideoListCard";
 
-const VideoListContainer = (props:any) =>{
+const VideoListContainer = inject('AuthStore','ThemeStore')(observer((props:any) =>{
 
     const renderVideoCard =() =>{
         const {details} = props;
@@ -23,6 +24,6 @@ const VideoListContainer = (props:any) =>{
             </VideoListWrapper>
         </div>
     )
-}
+}))
 
 export default VideoListContainer;

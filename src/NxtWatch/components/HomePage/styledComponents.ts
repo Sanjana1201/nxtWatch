@@ -17,6 +17,7 @@ export const ContentWrapper = styled.div`
 export const PageContentContainer = styled.div`
     overflow-y: auto;
     width: 100%;
+    background-color: ${props =>props.theme.backgroundDark}
 `
 
 export const StyledLink = styled(Link)`

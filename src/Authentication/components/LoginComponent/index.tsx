@@ -5,17 +5,19 @@ import { Redirect } from 'react-router-dom';
 import Button from '../../../common/components/Button';
 import LoadingWrapper from '../../../common/components/LoadingWrapper';
 import TextInput from '../../../common/components/TextInput';
+import MyTheme from '../../../common/stores/ThemeStore';
 import AuthDataStore, { LoginRequestObject } from '../../stores/AuthStore';
 import LoginAppComponent from './LoginApp';
 import { LoginComponentContainer } from './styledComponents';
 
 interface Props {
     onClickLogin: (requestObject: LoginRequestObject) => void;
-    AuthStore: AuthDataStore
+    AuthStore: AuthDataStore;
+    ThemeStore: MyTheme;
     onClickError: () => string;
 }
 
-@inject('AuthStore')
+@inject('AuthStore','ThemeStore')
 @observer
 class LoginComponent extends Component<Props> {
 

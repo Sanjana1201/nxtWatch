@@ -1,9 +1,13 @@
-const NoResultPage = () =>{
+import { CustomContainer, StyledImage } from "./styledComponents";
+
+const NoSavedVideo = () =>{
     return (
-        <div>
-            <img src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png" alt="No Data"/>
-        </div>
+        <CustomContainer>
+            <StyledImage src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png" alt="No Data"/>
+            <p><b>No saved videos found</b></p>
+            <p>You can save your videos while watching them</p>
+        </CustomContainer>
     )
 }
 
-export default NoResultPage;
+export default NoSavedVideo;

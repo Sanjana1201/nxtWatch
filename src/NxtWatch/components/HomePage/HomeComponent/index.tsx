@@ -26,7 +26,7 @@ class HomeComponent extends Component<Props>{
             const {id} = eachData;
             return (
                 <StyledLink key={id} to={`/videos/${id}`}>
-                    <HomeVideoCards details={eachData}/>
+                    <HomeVideoCards details={eachData} {...this.props}/>
                 </StyledLink>
             )
         })

@@ -10,6 +10,7 @@ export const NavbarWrapper = styled.div`
     align-items: center;
     padding: 0px 30px;
     height: 10vh;
+    background-color: ${props => props.theme.wrapper}
 `
 export const ProfileImg = styled.img`
     width: 40px;
@@ -18,10 +19,11 @@ export const ProfileImg = styled.img`
 export const CustomWhiteBgButton = styled.button<Props>`
     background-color: #ffffff;
     border: 1px solid ${props => props.MyColor? props.MyColor:"#ffffff"};
-    color: ${props => props.MyColor? props.MyColor:"#ffffff"};;
+    color: ${props => props.MyColor? props.MyColor:"#ffffff"};
     padding: 10px 10px;
     font-weight: 600;
     font-size: 14px;
+    background-color: ${props => props.theme.wrapper}
 `
 
 export const ThemeButton = styled.button`
@@ -29,6 +31,7 @@ export const ThemeButton = styled.button`
     border: 0;
     height: 30px;
     font-size: 30px;
+    background-color: ${props =>props.theme.wrapper}
 `
 
 export const NavlinksContainer = styled.div`

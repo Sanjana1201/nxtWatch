@@ -1,4 +1,7 @@
-import {GamingImage} from './styledComponents'
+import { inject, observer } from 'mobx-react';
+import AuthDataStore from '../../../../Authentication/stores/AuthStore';
+import MyTheme from '../../../../common/stores/ThemeStore';
+import {GamingImage, GamingWrapper} from './styledComponents'
 
 interface GameData{
     id: string,
@@ -8,14 +11,16 @@ interface GameData{
 }
 
 interface Props{
-    gamingDetails : GameData
+    gamingDetails : GameData,
+    AuthStore: AuthDataStore;
+    ThemeStore: MyTheme,
 }
 
-const GamesCardComponent = (props:Props) =>{
+const GamesCardComponent = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
     const { title,thumbnail_url,view_count} = props.gamingDetails;
     return (
         <>
-        <div>
+        <GamingWrapper>
             <div>
                 <GamingImage src={thumbnail_url} alt="Detailed_Image"/>
             </div>
@@ -23,9 +28,9 @@ const GamesCardComponent = (props:Props) =>{
                 <p>{title}</p>
                 <p>{view_count} Watching Worldwide</p>
             </div>
-        </div>
+        </GamingWrapper>
         </>
     )
-}
+}))
 
 export default GamesCardComponent

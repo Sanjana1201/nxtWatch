@@ -4,7 +4,7 @@ class MyTheme{
     @observable theme = "Light";
 
     @action changeTheme = () =>{
-        this.theme = "Dark"
+        this.theme = this.theme==="Dark"? "Light":"Dark";
     }
 }
 

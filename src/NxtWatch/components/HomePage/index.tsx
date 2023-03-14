@@ -1,8 +1,10 @@
 import { inject, observer } from 'mobx-react';
 import { Component, ReactNode} from 'react';
+import { ThemeProvider } from 'styled-components';
 import AuthDataStore from '../../../Authentication/stores/AuthStore';
 import LoadingWrapper from '../../../common/components/LoadingWrapper';
 import SomethingWentWrongPage from '../../../common/components/SomethingWentWrong';
+import { DarkModeColors, LightModeColors } from '../../../common/constants/colors';
 import { API_STATUS } from '../../../common/enums/LoadingStateEnum';
 import MyTheme from '../../../common/stores/ThemeStore';
 import { HomeVideoModel } from '../../stores/types';
@@ -57,6 +59,7 @@ class HomePageComponent extends Component<MyProps>{
     render(): ReactNode {
         return (
             <div>
+                <ThemeProvider theme={this.props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
                 <NavbarComponent />
                 <ContentWrapper>
                     <SideBarComponent />
@@ -70,6 +73,7 @@ class HomePageComponent extends Component<MyProps>{
                         />
                     </PageContentContainer>
                 </ContentWrapper>
+                </ThemeProvider>
             </div>
         )
     }

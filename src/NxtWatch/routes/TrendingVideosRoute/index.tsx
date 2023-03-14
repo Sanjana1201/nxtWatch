@@ -38,7 +38,7 @@ class TrendingRoute extends Component<Props>{
      
         return (
             <>
-                <TrendingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} TrendingVideosList = {this.renderVideos()}/>
+                <TrendingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} TrendingVideosList = {this.renderVideos()} {...this.props}/>
             </>
         )
     }
