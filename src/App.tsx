@@ -1,6 +1,5 @@
 import React from 'react';
-import AppComponent from './common/routes';
-import NxtWatch from './common/routes';
+import AppComponent from './components/common/routes';
 
 
 function App() {
