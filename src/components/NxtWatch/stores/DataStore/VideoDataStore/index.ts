@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, observable } from "mobx";
 import { API_STATUS } from "../../../../common/enums/LoadingStateEnum";
 import { VideoDataService } from "../../../services/VideoDataService";
 import { VideoModel } from "../../types";
@@ -7,13 +7,11 @@ class VideoDataStore{
     @observable currStatus : API_STATUS;
     @observable currData : VideoModel;
     @observable currError :string;
-    // @observable SaveButton = ;
 
     constructor(){
         this.currStatus = API_STATUS.INITIAL;
         this.currData = {} as VideoModel;
         this.currError = "";
-        // SaveButton = false;
     }
 
     @action getCurrentVideoData = (videoUrl:string) =>{
@@ -33,13 +31,6 @@ class VideoDataStore{
             this.currStatus = API_STATUS.FAILURE;
         });
     }
-    // @action changeSavedStatus = () =>{
-    //     this.SaveButton = !this.SaveButton;
-    // }
-
-    // @computed get SavedStatus(){
-    //     return this.SaveButton;
-    // }
 }
 
 const VideoStore = new VideoDataStore();

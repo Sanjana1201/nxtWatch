@@ -1,5 +1,4 @@
 import LightModeIcon from '../../../icons/nxtWaveIcon/lightModeIcon';
-import { CustomWhiteBgButton } from '../../Navbar/styledComponents';
 import {BannerWrapper, CrossButton, GetItNowButton} from './styledComponents';
 import {useTranslation} from 'react-i18next';
 

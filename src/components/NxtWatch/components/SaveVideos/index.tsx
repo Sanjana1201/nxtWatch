@@ -1,8 +1,6 @@
 import { inject, observer } from "mobx-react";
 import { ThemeProvider } from "styled-components";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
-import LoadingWrapper from "../../../common/components/LoadingWrapper";
-import NoSavedVideo from "../../../common/components/NoSavedVideo";
 import { DarkModeColors, LightModeColors } from "../../../common/constants/colors";
 import { API_STATUS } from "../../../common/enums/LoadingStateEnum";
 import MyTheme from "../../../common/stores/ThemeStore";
@@ -14,7 +12,6 @@ import SideBarComponent from "../SideBar";
 import { TrendingComponentWrapper } from "../TrendingPage/styledComponents";
 import VideoListContainer from "../VideoListView";
 import {useTranslation} from 'react-i18next';
-import { useEffect } from "react";
 
 interface Props{
     AuthStore : AuthDataStore,
@@ -28,22 +25,10 @@ const SavedVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
 
     const {t} = useTranslation();
 
-    // useEffect(()=>{
-    //     renderInitialUI();
-    // })
-
     const renderVideosList = () =>{
         const SavedVideos = props.SavedVideosList;
         return <VideoListContainer details={SavedVideos}/>
     }
-
-    // const renderInitialUI = () =>{
-    //     return (
-    //         <>
-    //         {renderVideosList()}
-    //         </>
-    //     )
-    // }
 
     const renderSuccessUI = () =>{
         return (
@@ -52,14 +37,6 @@ const SavedVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
             </> 
         )
     }
-
-    // const getSavedVideosData = () =>{
-    //     return(
-    //         <>
-    //             <NoSavedVideo />
-    //         </>
-    //     )
-    // }
 
     return (
         <>

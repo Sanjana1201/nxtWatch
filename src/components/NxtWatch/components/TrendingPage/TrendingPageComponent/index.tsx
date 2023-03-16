@@ -5,7 +5,6 @@ import { DarkModeColors, LightModeColors } from "../../../../common/constants/co
 import MyTheme from "../../../../common/stores/ThemeStore"
 import { TrendingVideoModel } from "../../../stores/types"
 import NxtWatchHeading from "../../HeadingContainer"
-import { PageContentContainer } from "../../HomePage/styledComponents"
 import VideoListContainer from "../../VideoListView"
 import { TrendingComponentWrapper } from "../styledComponents"
 import {useTranslation} from 'react-i18next';

@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { PeriodDivSymbol, ViewsTimeDiv } from "../../HomePage/HomeVideoCard/styleComponents";
+import { PeriodDivSymbol} from "../../HomePage/HomeVideoCard/styleComponents";
 import { NxtWatchVideoContent,NxtWatchVideoCardsWrapper,ThumbnailImage,ViewsDiv} from "./styledComponents";
 import {useTranslation} from 'react-i18next';
 

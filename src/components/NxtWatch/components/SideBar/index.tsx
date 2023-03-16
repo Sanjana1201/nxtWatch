@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import {SidebarWrapper,SidebarLinks,CustomIcons,CustomSocialIcons, CustomLink,FooterDiv, ContactUsDiv, ContactUsContent, SocialIconDiv} from './styledComponents'
+import {SidebarWrapper,SidebarLinks,CustomIcons,CustomSocialIcons,FooterDiv, ContactUsDiv, ContactUsContent, SocialIconDiv} from './styledComponents'
 import './index.css';
 import { ThemeProvider } from 'styled-components';
 import { DarkModeColors, LightModeColors } from '../../../common/constants/colors';

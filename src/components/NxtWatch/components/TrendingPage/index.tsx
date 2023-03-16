@@ -10,7 +10,6 @@ import { ContentWrapper, PageContentContainer } from "../HomePage/styledComponen
 import NavbarComponent from "../Navbar";
 import SideBarComponent from "../SideBar";
 import TrendingPageComponent from "./TrendingPageComponent";
-import {useTranslation} from 'react-i18next';
 
 interface Props{
     AuthStore : AuthDataStore,
@@ -22,8 +21,6 @@ interface Props{
 }
 
 const TrendingVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
-
-    const {t} = useTranslation();
 
     useEffect(()=>{
         props.getVideo();

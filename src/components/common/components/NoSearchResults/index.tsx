@@ -4,7 +4,6 @@ import {useTranslation} from 'react-i18next';
 import { inject, observer } from "mobx-react";
 import MyTheme from "../../stores/ThemeStore";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
-import { MyThemeStore } from "../../stores";
 import { ThemeProvider } from "styled-components";
 import { DarkModeColors, LightModeColors } from "../../constants/colors";
 import { DarkColorText, LightColorText } from "../SomethingWentWrong/styledComponents";

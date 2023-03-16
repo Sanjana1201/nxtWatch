@@ -1,9 +1,6 @@
-import { observable } from "mobx";
 import { inject, observer } from "mobx-react";
 import { useState } from "react";
 import ReactPlayer from "react-player";
-import SavedVideoStore from "../../../stores/DataStore/SavedVideoDataStore";
-import VideoStore from "../../../stores/DataStore/VideoDataStore";
 import { VideoModel } from "../../../stores/types";
 import { CustomSocialIcons } from "../../SideBar/styledComponents";
 import { ContentContainer, VideoButtons, VideoDetailContainer, VideoDetailsContent } from "../styledComponents";

@@ -7,13 +7,11 @@ import SomethingWentWrongPage from '../../../common/components/SomethingWentWron
 import { DarkModeColors, LightModeColors } from '../../../common/constants/colors'
 import { API_STATUS } from '../../../common/enums/LoadingStateEnum'
 import MyTheme from '../../../common/stores/ThemeStore'
-import VideoStore from '../../stores/DataStore/VideoDataStore'
 import { VideoModel } from '../../stores/types'
 import { ContentWrapper, PageContentContainer } from '../HomePage/styledComponents'
 import NavbarComponent from '../Navbar'
 import SideBarComponent from '../SideBar'
 import VideoCard from './VideoCard';
-import {useTranslation} from 'react-i18next';
 
 interface Props{
     AuthStore : AuthDataStore,
@@ -28,8 +26,6 @@ interface Props{
 }
 
 const VideoPlayer = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
-
-    const {t} = useTranslation();
 
     useEffect(()=>{
         renderData();

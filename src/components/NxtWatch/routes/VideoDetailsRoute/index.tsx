@@ -1,6 +1,6 @@
 import { inject, observer } from "mobx-react";
 import { Component } from "react";
-import { RouteComponentProps, useParams } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
 import MyTheme from "../../../common/stores/ThemeStore";
 import VideoPlayer from "../../components/VideoPage";

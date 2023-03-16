@@ -1,7 +1,7 @@
 import NxtWatchHeading from "../HeadingContainer";
 import {GamesWrapper,GamesContainer, StyledGamingLink} from "./styledComponents"
 import GamingCard from "./GamingCards";
-import { ContentWrapper, PageContentContainer, StyledLink } from "../HomePage/styledComponents";
+import { ContentWrapper, PageContentContainer } from "../HomePage/styledComponents";
 import NavbarComponent from "../Navbar";
 import SideBarComponent from "../SideBar";
 import { useEffect } from "react";
