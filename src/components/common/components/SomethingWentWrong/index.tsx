@@ -19,7 +19,7 @@ const SomethingWentWrongPage = inject('AuthStore','ThemeStore')(observer((props:
 
     return (
         <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
-        <CustomContainer>
+        <CustomContainer topMargin="50px">
             <StyledImage src={props.ThemeStore.theme==='Light'? "https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png":"https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"} alt="Something went wrong"/>
             <LightColorText><b>{t("something_wrong_msg")}</b></LightColorText>
             <DarkColorText>{t("something_wrong_msg_detail")}</DarkColorText>

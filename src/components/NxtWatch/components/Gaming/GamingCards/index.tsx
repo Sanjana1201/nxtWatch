@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react';
 import AuthDataStore from '../../../../Authentication/stores/AuthStore';
 import MyTheme from '../../../../common/stores/ThemeStore';
-import {GamingImage, GamingText, GamingWrapper} from './styledComponents';
+import {GamingImage, GamingText, GamingTextLite, GamingWrapper} from './styledComponents';
 import {useTranslation} from 'react-i18next';
 import { ThemeProvider } from 'styled-components';
 import { DarkModeColors, LightModeColors } from '../../../../common/constants/colors';
@@ -31,7 +31,7 @@ const GamesCardComponent = inject('AuthStore','ThemeStore')(observer((props:Prop
             </div>
             <div>
                 <GamingText>{title}</GamingText>
-                <GamingText>{view_count} {t("watching_worldwide")}</GamingText>
+                <GamingTextLite>{view_count} {t("watching_worldwide")}</GamingTextLite>
             </div>
         </GamingWrapper>
         </ThemeProvider>

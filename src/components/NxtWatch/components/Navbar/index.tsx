@@ -5,7 +5,7 @@ import LanguageSelector from '../../../common/components/LanguageSelector';
 import { DarkModeColors, LightModeColors } from '../../../common/constants/colors';
 import { RemoveCookie } from '../../../common/utils/AuthUtil';
 import LightModeIcon from '../../icons/nxtWaveIcon/lightModeIcon';
-import {NavbarWrapper,ProfileImg,CustomWhiteBgButton,NavlinksContainer,ThemeButton} from './styledComponents'
+import {NavbarWrapper,ProfileImg,CustomWhiteBgButton,NavlinksContainer,ThemeButton, DarkIcon} from './styledComponents'
 import {useTranslation} from 'react-i18next';
 import DarkModeIcon from '../../icons/nxtWaveIcon/darkModeIcon';
 
@@ -32,7 +32,7 @@ const NavbarComponent = inject('AuthStore','ThemeStore')(observer(({AuthStore,Th
             {ThemeStore.theme==='Light'? <LightModeIcon />:<DarkModeIcon/>}
             <NavlinksContainer>
             <LanguageSelector />
-                <ThemeButton type="button" onClick={handleTheme}>{ThemeStore.theme==="Light"? (<i className="fa-solid fa-moon"></i>):(<i className="fa-solid fa-sun"></i>)}</ThemeButton>
+                <ThemeButton type="button" onClick={handleTheme}>{ThemeStore.theme==="Light"? (<i className="fa-solid fa-moon"></i>):(<DarkIcon className="fa-solid fa-sun"></DarkIcon>)}</ThemeButton>
                 <ProfileImg src = "https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png" alt ="profile" />
                 <CustomWhiteBgButton MyColor="#3b82f6" onClick={handleLogout}>{t('logout')}</CustomWhiteBgButton>
             </NavlinksContainer>

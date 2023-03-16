@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const GamesWrapper = styled.div`
@@ -6,5 +7,9 @@ export const GamesWrapper = styled.div`
     padding: 20px;
 `
 export const GamesContainer = styled.div`
-    padding: 0 20px;
+`
+export const StyledGamingLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    margin: 10px;
 `

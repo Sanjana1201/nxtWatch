@@ -1,4 +1,4 @@
-import { CustomNxtWaveLogo } from "../lightModeIcon/styledComponents";
+import { CustomNxtWaveLogo } from "../styledComponents";
 
 const DarkModeIcon = () =>{
     return (

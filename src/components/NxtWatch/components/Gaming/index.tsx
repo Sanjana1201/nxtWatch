@@ -1,5 +1,5 @@
 import NxtWatchHeading from "../HeadingContainer";
-import {GamesWrapper,GamesContainer} from "./styledComponents"
+import {GamesWrapper,GamesContainer, StyledGamingLink} from "./styledComponents"
 import GamingCard from "./GamingCards";
 import { ContentWrapper, PageContentContainer, StyledLink } from "../HomePage/styledComponents";
 import NavbarComponent from "../Navbar";
@@ -16,13 +16,6 @@ import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import { ThemeProvider } from "styled-components";
 import { DarkModeColors, LightModeColors } from "../../../common/constants/colors";
 import {useTranslation} from 'react-i18next';
-
-// const data = {
-//     id: "b214dc8a-b126-4d15-8523-d37404318347",
-//     title: "Drop Stack Ball",
-//     thumbnail_url: "https://assets.ccbp.in/frontend/react-js/nxt-watch/drop-stack-ball-img.png",
-//     view_count: "44K"
-// }
 
 interface Props{
     AuthStore: AuthDataStore;
@@ -51,9 +44,9 @@ const GamingVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
             const {id} = eachData;
             return(
                 
-                <StyledLink key={id} to={`/videos/${id}`}>
+                <StyledGamingLink key={id} to={`/videos/${id}`}>
                     <GamingCard gamingDetails = {eachData} {...props}/>
-                </StyledLink>
+                </StyledGamingLink>
             ) 
         })
     }

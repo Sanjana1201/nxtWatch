@@ -1,12 +1,21 @@
 
-/* .SideBarLinksContainer a.active{
-    color:red;
-    background-color: red;
-
+/* .SideBarLinksContainer a.active div{
+    background-color: #e2e8f0;
+    font-weight: 600;
 } */
 
-.SideBarLinksContainer a.active div{
-    background-color: #cbd5e1;
+.SideBarLinksContainer a.active div.lightMode{
+    background-color: #e2e8f0;
+    font-weight: 600;
+}
+
+.SideBarLinksContainer a.active div.darkMode{
+    background-color: #383838;
+    font-weight: 600;
+}
+
+.SideBarLinksContainer a.active i{
+    color: red;
 }
 
 .SideBarLinksContainer a{

@@ -13,25 +13,26 @@ export const SidebarWrapper = styled.div`
     width: 15vw;
     position: relative;
     background-color: ${props => props.theme.wrapper};
-    @media (max-width: 768px) {
+    @media (max-width: 1095px) {
         display: none;
     }
 `
 
 export const SidebarLinks = styled.div<Props>`
-    height: 50px;
-    padding: 10px 30px;
+    padding: 6px 15px;
     text-decoration: none;
+    font-size: 14px;
     color: ${props => props.theme.textDark}
 `
 
 export const CustomIcons = styled.i`
     padding: 10px;
+    width: 30px;
 `
 
 export const CustomSocialIcons = styled.img`
-    width: 50px;
-    padding: 10px;
+    width: 30px;
+    padding: 5px;
 `
 
 export const CustomLink = styled(Link)`
@@ -40,14 +41,23 @@ export const CustomLink = styled(Link)`
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     margin: 10px;
-    &.hover{
-        color: blue;
-    };
     &.active{
         color: red;
     };
 `
 
 export const FooterDiv = styled.div`
+    padding: 0 0 20px 20px;
     color: ${props => props.theme.textDark}
+`
+
+export const ContactUsDiv = styled.div`
+    font-weight: 700;
+`
+export const ContactUsContent = styled.div`
+    font-weight: 600;
+`
+
+export const SocialIconDiv = styled.div`
+    margin: 20px 0;
 `

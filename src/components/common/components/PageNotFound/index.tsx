@@ -19,7 +19,7 @@ const PageNotFoundPage = inject('AuthStore','ThemeStore')(observer((props:Props)
 
     return (
         <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
-        <CustomContainer>
+        <CustomContainer topMargin="0px">
             <NotFoundImage src={props.ThemeStore.theme==='Light'? "https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-light-theme-img.png":"https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-dark-theme-img.png"} alt="Not Found"/>
             <LightColorText><b>{t("page_not_found")}</b></LightColorText>
             <DarkColorText>{t("page_not_found_content")}</DarkColorText>

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import AuthDataStore from '../../../../Authentication/stores/AuthStore'
 import { DarkModeColors, LightModeColors } from '../../../../common/constants/colors'
 import MyTheme from '../../../../common/stores/ThemeStore'
-import {PeriodDivSymbol,ViewsTimeDiv,HomeVideoCard,HomeVideoContent,ThumbnailImage,CardImage} from './styleComponents'
+import {PeriodDivSymbol,ViewsTimeDiv,HomeVideoCard,HomeVideoContent,ThumbnailImage,CardImage, CardsContent} from './styleComponents'
 import {useTranslation} from 'react-i18next';
 
 interface PropTypes{
@@ -42,8 +42,8 @@ const HomeVideoCards =inject('AuthStore','ThemeStore')(observer((props:Props) =>
                 <ThumbnailImage src={profile_image_url} alt="Profile-img"/>
             </div>
             <div>
-                <p>{title}</p>
-                <p>{name}</p>
+                <CardsContent>{title}</CardsContent>
+                <CardsContent>{name}</CardsContent>
                 <ViewsTimeDiv>
                     {view_count} {t("views")} <PeriodDivSymbol></PeriodDivSymbol> {formatDistanceToNow(new Date(published_at))}
                 </ViewsTimeDiv>

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import {SidebarWrapper,SidebarLinks,CustomIcons,CustomSocialIcons, CustomLink,FooterDiv} from './styledComponents'
+import {SidebarWrapper,SidebarLinks,CustomIcons,CustomSocialIcons, CustomLink,FooterDiv, ContactUsDiv, ContactUsContent, SocialIconDiv} from './styledComponents'
 import './index.css';
 import { ThemeProvider } from 'styled-components';
 import { DarkModeColors, LightModeColors } from '../../../common/constants/colors';
@@ -12,63 +12,42 @@ const SideBarComponent = inject('AuthStore','ThemeStore')(observer(({AuthStore,T
 
     return (
         // <div style={{display: "flex",height: "100vh",justifyContent: "stretch"}}>
-        <ThemeProvider theme={ThemeStore.theme==="Light"? LightModeColors:DarkModeColors}>
+    <ThemeProvider theme={ThemeStore.theme==="Light"? LightModeColors:DarkModeColors}>
     <SidebarWrapper>
         <div className="SideBarLinksContainer">
-            {/* <CustomLink className="nav-link" to="/">
-            <SidebarLinks>
-                <CustomIcons className="fa-solid fa-house"></CustomIcons>Home
-            </SidebarLinks>
-            </CustomLink>
-            <CustomLink className="nav-link" to ="/trending">
-            <SidebarLinks>
-                <CustomIcons className="fa-solid fa-fire"></CustomIcons>Trending
-            </SidebarLinks>
-            </CustomLink>
-            <CustomLink className="nav-link" to = "/gaming">
-            <SidebarLinks>
-                <CustomIcons className="fa-sharp fa-solid fa-gamepad"></CustomIcons> Gaming
-            </SidebarLinks>
-            </CustomLink>
-            <CustomLink className="nav-link" to ="/saved-videos">
-            <SidebarLinks>
-                <CustomIcons className="fa-solid fa-plus"></CustomIcons> Saved Videos
-            </SidebarLinks>
-            </CustomLink> */}
-
             <NavLink activeClassName="active" exact to="/">
-            <SidebarLinks>
+            <SidebarLinks className={ThemeStore.theme==="Light"? "lightMode":"darkMode"}>
                 <CustomIcons className="fa-solid fa-house"></CustomIcons>{t('Home')}
             </SidebarLinks>
             </NavLink>
             <NavLink activeClassName="active" exact to ="/trending">
-            <SidebarLinks>
+            <SidebarLinks className={ThemeStore.theme==="Light"? "lightMode":"darkMode"}>
                 <CustomIcons className="fa-solid fa-fire"></CustomIcons>{t('Trending')}
             </SidebarLinks>
             </NavLink>
             <NavLink activeClassName="active" exact to = "/gaming">
-            <SidebarLinks>
-                <CustomIcons className="fa-sharp fa-solid fa-gamepad"></CustomIcons> {t('Gaming')}
+            <SidebarLinks className={ThemeStore.theme==="Light"? "lightMode":"darkMode"}>
+                <CustomIcons className="fa-sharp fa-solid fa-gamepad"></CustomIcons>{t('Gaming')}
             </SidebarLinks>
             </NavLink>
             <NavLink activeClassName="active" exact to ="/saved-videos">
-            <SidebarLinks>
+            <SidebarLinks className={ThemeStore.theme==="Light"? "lightMode":"darkMode"}>
                 <CustomIcons className="fa-solid fa-plus"></CustomIcons>{t('Saved Videos')}
             </SidebarLinks>
             </NavLink>
         </div>
         <FooterDiv>
-            <div>
-            {t('Contact_Us')}
-            </div>
-            <div>
+            <ContactUsDiv>
+                {t('Contact_Us')}
+            </ContactUsDiv>
+            <SocialIconDiv>
                 <CustomSocialIcons src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png" alt = "facebook logo" />
                 <CustomSocialIcons src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png" alt="twitter logo"/>
                 <CustomSocialIcons src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png" alt="linked in logo"/>
-            </div>
-            <div>
+            </SocialIconDiv>
+            <ContactUsContent>
                 {t('footer_msg')}
-            </div>
+            </ContactUsContent>
         </FooterDiv>
     </SidebarWrapper>
     </ThemeProvider>

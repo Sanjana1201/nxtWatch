@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { PeriodDivSymbol, ViewsTimeDiv } from "../../HomePage/HomeVideoCard/styleComponents";
-import { NxtWatchVideoContent,NxtWatchVideoCardsWrapper,ThumbnailImage } from "./styledComponents";
+import { NxtWatchVideoContent,NxtWatchVideoCardsWrapper,ThumbnailImage,ViewsDiv} from "./styledComponents";
 import {useTranslation} from 'react-i18next';
 
 const NxtWatchVideoCard = (props:any) =>{
@@ -19,9 +19,9 @@ const NxtWatchVideoCard = (props:any) =>{
                     <div>
                         <p>{title}</p>
                         <p>{name}</p>
-                        <ViewsTimeDiv>
+                        <ViewsDiv>
                             {view_count} {t("views")} <PeriodDivSymbol></PeriodDivSymbol> {formatDistanceToNow(new Date(published_at))}
-                        </ViewsTimeDiv>
+                        </ViewsDiv>
                     </div>
                 </NxtWatchVideoContent>
             </NxtWatchVideoCardsWrapper>

@@ -9,7 +9,7 @@ import MyTheme from "../../../../common/stores/ThemeStore";
 import DarkModeIcon from "../../../../NxtWatch/icons/nxtWaveIcon/darkModeIcon";
 import LightModeIcon from "../../../../NxtWatch/icons/nxtWaveIcon/lightModeIcon";
 import AuthDataStore, { LoginRequestObject } from "../../../stores/AuthStore";
-import { LoginButton, LoginCheckboxText, LoginDiv, LoginFieldsContainer, LoginWrapper } from "./styledComponents";
+import { CustomCheckbox, Errorp, ErrorWrapper, IconDiv, LoginButton, LoginCheckboxText, LoginDiv, LoginFieldsContainer, LoginWrapper } from "./styledComponents";
 import { withTranslation } from 'react-i18next';
 
 
@@ -70,8 +70,9 @@ class LoginAppComponent extends Component<Props>{
             <LoginWrapper>
             <LanguageSelector />
                 <LoginDiv>
-                    {this.props.ThemeStore.theme==='Light'? <LightModeIcon />:<DarkModeIcon />}
-                    
+                    <IconDiv>
+                        {this.props.ThemeStore.theme==='Light'? <LightModeIcon />:<DarkModeIcon />}
+                    </IconDiv>
                     <LoginFieldsContainer>
                         <div>
                             <TextInput placeholder='Enter your name' label={t("username")} onChange={this.onChangeUserName} type = "text"/>
@@ -79,10 +80,12 @@ class LoginAppComponent extends Component<Props>{
                         <div>
                             <TextInput placeholder='Enter your password' label={t("password")} onChange={this.onChangePassword} type={this.showPassword? "text":"password"}/>
                         </div>
+                        <LoginCheckboxText><CustomCheckbox type="checkbox" id="MyCheckbox" onChange = {this.handlePassword} />{t("showPassword")}</LoginCheckboxText>
                     </LoginFieldsContainer>
-                    <LoginCheckboxText><input type="checkbox" id="MyCheckbox" onChange = {this.handlePassword} />{t("showPassword")}</LoginCheckboxText>
-                    {this.props.errorMsg===""? <></>:<>{this.props.errorMsg}</>}
-                <LoginButton type="button" onClick={this.onClickLogin}>{t("Login")}</LoginButton>
+                <LoginButton type="button" onClick={this.onClickLogin}><b>{t("Login")}</b></LoginButton>
+                <ErrorWrapper>
+                {this.props.errorMsg===""? <></>:<Errorp>*{this.props.errorMsg}</Errorp>}
+                </ErrorWrapper>
                 </LoginDiv>
             </LoginWrapper>
             </ThemeProvider>

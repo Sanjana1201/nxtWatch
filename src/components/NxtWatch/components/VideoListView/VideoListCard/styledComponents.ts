@@ -7,8 +7,18 @@ export const NxtWatchVideoContent = styled.div`
 
 export const NxtWatchVideoCardsWrapper = styled.div`
     display: flex;
+    margin: 10px;
+    flex-direction: row;
+    @media (max-width: 771px){
+        flex-direction: column;
+        align-items: center;
+    }
 `
 
 export const ThumbnailImage = styled.img`
     max-width: 300px;
+`
+export const ViewsDiv = styled.div`
+    display: flex;
+    align-items: center;
 `

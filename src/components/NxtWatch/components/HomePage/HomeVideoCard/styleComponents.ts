@@ -6,6 +6,7 @@ export const PeriodDivSymbol = styled.div`
     border: 2px solid #7e858e;
     border-radius: 3px;
     background-color: #7e858e;
+    margin: 0 10px;
 `
 
 export const ViewsTimeDiv = styled.div`
@@ -16,7 +17,7 @@ export const ViewsTimeDiv = styled.div`
 `
 
 export const HomeVideoCard = styled.div`
-    width: 250px;
+    width: 280px;
     padding: 10px;
     color: ${props => props.theme.textDark};
     margin: 10px;
@@ -27,8 +28,13 @@ export const HomeVideoContent = styled.div`
 `
 
 export const ThumbnailImage = styled.img`
-    width: 50px;
+    width: 40px;
+    margin: 10px;
 `
 export const CardImage = styled.img`
-    width: 250px;
+    width: 280px;
+`
+
+export const CardsContent = styled.div`
+    padding: 5px 0;
 `

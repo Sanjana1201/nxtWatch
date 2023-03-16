@@ -15,7 +15,10 @@ const NxtWatchHeading = inject('AuthStore','ThemeStore')(observer((props:Props) 
         <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
         <HeadingContainer>
             <HeadingIconHolder>
-                <i className="fa-solid fa-fire"></i>
+                {props.title === "Trending" && <i className="fa-solid fa-fire"></i>}
+                {props.title==="Gaming" && <i className="fa-sharp fa-solid fa-gamepad"></i>}
+                {props.title==="Saved Videos" && <i className="fa-solid fa-plus"></i>}
+                
             </HeadingIconHolder>
             <div>
                 <HeadingText>{props.title}</HeadingText>

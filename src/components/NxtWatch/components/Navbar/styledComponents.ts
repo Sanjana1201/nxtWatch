@@ -20,7 +20,8 @@ export const CustomWhiteBgButton = styled.button<Props>`
     background-color: #ffffff;
     border: 1px solid ${props => props.MyColor? props.MyColor:"#ffffff"};
     color: ${props => props.MyColor? props.MyColor:"#ffffff"};
-    padding: 10px 10px;
+    padding: 7px 16px;
+    border-radius: 4px;
     font-weight: 600;
     font-size: 14px;
     background-color: ${props => props.theme.wrapper}
@@ -35,8 +36,12 @@ export const ThemeButton = styled.button`
 `
 
 export const NavlinksContainer = styled.div`
-    min-width: 330px;
+    min-width: 400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+`
+
+export const DarkIcon = styled.i`
+    color: #ffffff;
 `

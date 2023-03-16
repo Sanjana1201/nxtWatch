@@ -20,7 +20,7 @@ const NoResultPage = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
 
     return (
         <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
-        <CustomContainer>
+        <CustomContainer topMargin="0px">
             <NoResultWrapper src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png" alt="No Data"/>
             <LightColorText><b>{t("no_search_result")}</b></LightColorText>
             <DarkColorText>{t("try_different_keyword")}</DarkColorText>

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
 export const CustomNxtWaveLogo = styled.img`
-    width: 200px;
+    width: 170px;
     max-width: 100%;
 `

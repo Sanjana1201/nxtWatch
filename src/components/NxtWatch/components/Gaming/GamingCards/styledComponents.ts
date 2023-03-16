@@ -12,3 +12,6 @@ export const GamingWrapper = styled.div`
 export const GamingText = styled.p`
     color: ${props=> props.theme.textDark}
 `
+export const GamingTextLite = styled.p`
+    color: ${props => props.theme.textLight}
+`

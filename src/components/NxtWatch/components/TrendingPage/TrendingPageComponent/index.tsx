@@ -27,12 +27,10 @@ const TrendingPageComponent = inject('AuthStore','ThemeStore')(observer((props:P
 
     return(
         <ThemeProvider theme={props.ThemeStore.theme==='Light'? LightModeColors: DarkModeColors}>
-        <PageContentContainer>
             <TrendingComponentWrapper>
                 <NxtWatchHeading title={t("Trending")} {...props}/>
                 {renderTrendingData()}
             </TrendingComponentWrapper>
-        </PageContentContainer>
         </ThemeProvider>
     )
 }))

@@ -1,7 +1,7 @@
 export const DarkModeColors = {
     textLight: "#ffffff",
     textDark: "#ffffff",
-    wrapper : "#212121",
+    wrapper : "#313131",
     backgroundLight : "#000000",
     backgroundDark: "#000000",
     sidebarLinkColor: "#606060",
@@ -17,6 +17,6 @@ export const LightModeColors = {
     backgroundLight: "#ffffff",
     backgroundDark: "#f9f9f9",
     sidebarLinkColor: "#f8fafe",
-    headingIconContainer: "#cbd5e1",
+    headingIconContainer: "#e2e8f0",
     headingContainer: "#ebebeb"
 }
