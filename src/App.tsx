@@ -1,5 +1,5 @@
 import React from 'react';
-import AppComponent from './components/common/routes';
+import AppComponent from './common/routes';
 
 
 function App() {
