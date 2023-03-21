@@ -5,33 +5,41 @@ import LoadingWrapper from '../../../common/components/LoadingWrapper';
 import { LoginComponentContainer } from '../../components/LoginComponent/styledComponents';
 import AuthDataStore, { LoginRequestObject } from '../../stores/AuthStore';
 import LoginAppComponent from '../../components/LoginComponent';
+import { API_STATUS } from '../../../common/enums/LoadingStateEnum';
 
 interface RouteParameter{
     history: any;
 }
 
 interface Props extends RouteComponentProps<RouteParameter>{
-    AuthStore: AuthDataStore;
+}
+
+interface InjectedProps extends Props{
+    AuthStore : AuthDataStore
 }
 
 @inject('AuthStore')
 @observer
 class LoginRoute extends Component<Props> {
 
+    getInjectedProps = () => this.props as InjectedProps;
+
+    getAuthStore = () => this.getInjectedProps().AuthStore;
+
     onClickLogin = (requestObject: LoginRequestObject) => {
-        const { AuthStore } = this.props;
-        const { logInUser } = AuthStore;
+        const { logInUser,currStatus } = this.getAuthStore();
         logInUser(requestObject);
+        console.log(currStatus);
+        // this.renderSuccessUI();
     }
 
     handleError = () =>{
-        const {AuthStore} = this.props;
-        const {failureMsg} = AuthStore;
+        const {failureMsg} = this.getAuthStore();
         return failureMsg;
     }
 
     renderInitial =() =>{
-        return <LoginAppComponent handleLoginClick={this.onClickLogin} errorMsg = {this.handleError()} {...this.props}/>
+        return <LoginAppComponent handleLoginClick={this.onClickLogin} errorMsg = {this.handleError()}/>
     }
 
     renderRetry = () =>{
@@ -45,24 +53,23 @@ class LoginRoute extends Component<Props> {
             JSON.parse(redirectUrl);
             redirectUrl = redirectUrl.slice(1,redirectUrl.length-1);
             localStorage.removeItem('redirectUrl');
-            return history.replace(redirectUrl);
+            history.replace(redirectUrl);
         }
         else{
             return <Redirect exact to = "/" />
         }
     } 
 
+    renderUI = () =>{
+        const currStatus = this.getAuthStore().currStatus;
+        return currStatus === API_STATUS.SUCCESS? <>{this.renderSuccessUI()}</>:<LoginAppComponent handleLoginClick={this.onClickLogin} errorMsg = {this.handleError()}/>;
+    }
+
     render() {
         return (
             <>
             <LoginComponentContainer>
-                <LoadingWrapper
-                    apiStatus={this.props.AuthStore.currStatus}
-                    apiError={this.props.AuthStore.failureMsg}
-                    onInitial = {this.renderInitial}
-                    onSuccess={this.renderSuccessUI}
-                    onRetry={this.renderRetry}
-                    />
+                {this.renderUI()}
             </LoginComponentContainer>
             </>
         );

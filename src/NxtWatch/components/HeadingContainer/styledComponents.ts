@@ -9,7 +9,7 @@ export const HeadingContainer = styled.div`
 `
 
 export const HeadingIconHolder = styled.div`
-    background-color: ${props => {console.log(props.theme.headingIconContainer);return props.theme.headingIconContainer}};
+    background-color: ${props => props.theme.headingIconContainer};
     height: 80px;
     width: 80px;
     display: flex;

@@ -1,6 +1,7 @@
 import { inject, observer } from "mobx-react";
 import { Component, ReactNode } from "react";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
+import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import MyTheme from "../../../common/stores/ThemeStore";
 import GamingVideos from "../../components/Gaming/index";
 import GamingStore from "../../stores/DataStore/GamingDataStore";
@@ -14,6 +15,10 @@ interface Props{
 @observer
 class GamingRoute extends Component<Props>{
 
+    componentDidMount(): void {
+        this.getGamingVideos();
+    }
+
     getApiStatus =() =>{
         const {currStatus}  = GamingStore;
         return currStatus;
@@ -24,7 +29,7 @@ class GamingRoute extends Component<Props>{
         return currError;
     }
 
-    getTrendingVideos = () =>{
+    getGamingVideos = () =>{
         const {getGamingData} = GamingStore;
         getGamingData();
     }
@@ -33,9 +38,22 @@ class GamingRoute extends Component<Props>{
         return GamingStore.currData;
     }
 
-    render(): ReactNode {
+    renderSuccessUI = () =>{
         return(
-            <GamingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} GamingVideosList={this.renderVideos()} {...this.props}/>
+            <GamingVideos gamingVideosList={this.renderVideos()}/>
+        )
+    }
+
+    render(): ReactNode {
+        return(<>
+            <LoadingWrapper 
+                apiStatus={this.getApiStatus()}
+                apiError={this.getErrorStatus()}
+                onSuccess={this.renderSuccessUI}
+                onRetry={this.getGamingVideos}
+            />
+        </>
+            // <GamingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} GamingVideosList={this.renderVideos()} {...this.props}/>
         )
     }
 }

@@ -48,3 +48,39 @@ export const NavlinksContainer = styled.div`
 export const DarkIcon = styled.i`
     color: #ffffff;
 `
+export const PopUpContainer = styled.div`
+    background-color: ${props => props.theme.wrapper};
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 25px;
+    color: ${props => props.theme.textDark};
+    border-radius: 10px;
+`
+export const CancelButton = styled.button`
+    background-color: ${props => props.theme.wrapper};
+    padding: 8px 11px;
+    font-weight: 500;
+    color: ${props =>props.theme.textLight};
+    offset: 0;
+    border: 1px solid ${props => props.theme.cardLightText};
+    border-radius: 2px;
+`
+
+export const ConfirmButton = styled.div`
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 8px 11px;
+    font-weight: 400;
+    offset: 0;
+    border: 0;
+    border-radius: 2px;
+`
+
+export const PopupButtonContainer = styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+`

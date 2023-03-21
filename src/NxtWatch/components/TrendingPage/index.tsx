@@ -1,66 +1,36 @@
-import { inject, observer } from "mobx-react";
-import { useEffect } from "react";
-import AuthDataStore from "../../../Authentication/stores/AuthStore";
-import LoadingWrapper from "../../../common/components/LoadingWrapper";
-import SomethingWentWrongPage from "../../../common/components/SomethingWentWrong";
-import { API_STATUS } from "../../../common/enums/LoadingStateEnum";
-import MyTheme from "../../../common/stores/ThemeStore";
+import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 import TrendingModel from "../../stores/models/VideoModels/TrendingVideosModel";
-import { ContentWrapper, PageContentContainer } from "../HomePage/styledComponents";
-import NavbarComponent from "../Navbar";
-import SideBarComponent from "../SideBar";
-import TrendingPageComponent from "./TrendingPageComponent";
+import NxtWatchHeading from "../HeadingContainer";
+import VideoListContainer from "../VideoListView";
+import WrapperComponent from "../Wrapper";
 
 interface Props{
-    AuthStore : AuthDataStore,
-    ThemeStore : MyTheme,
-    apiStatus : API_STATUS,
-    apiError : string,
-    getVideo:() =>void,
-    TrendingVideosList: Array<TrendingModel>
+    details: Array<TrendingModel>
 }
 
-const TrendingVideos = inject('AuthStore','ThemeStore')(observer((props:Props) =>{
+const TrendingPageComponent = (observer((props:Props) =>{
 
-    useEffect(()=>{
-        props.getVideo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    const {t} = useTranslation();
 
-    const renderInitialUI = () =>{
-        return <></>
-    }
-    const renderSuccessUI = () =>{
-        return(
-            <TrendingPageComponent details={props.TrendingVideosList} {...props}/>
-        )
+    const renderTrendingData =() =>{
+        return <VideoListContainer videoData={props.details} />
     }
 
-    const getTrendingVideosData =() =>{
-        return(
+    const renderWrappedComponent =() =>{
+        return (
             <>
-            <SomethingWentWrongPage onRetry ={props.getVideo} {...props}/>
+                <NxtWatchHeading title={t("Trending")} />
+                {renderTrendingData()}
             </>
         )
     }
 
-    return (
+    return(
         <>
-            <NavbarComponent />
-            <ContentWrapper>
-                <SideBarComponent />
-                <PageContentContainer>
-                <LoadingWrapper 
-                apiStatus={props.apiStatus}
-                apiError={props.apiError}
-                onInitial={renderInitialUI}
-                onSuccess={renderSuccessUI}
-                onRetry={getTrendingVideosData}
-                />
-                </PageContentContainer>
-            </ContentWrapper>
+            <WrapperComponent renderWrappedComponent={renderWrappedComponent} />
         </>
     )
 }))
 
-export default TrendingVideos;
+export default TrendingPageComponent;

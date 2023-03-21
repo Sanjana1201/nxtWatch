@@ -1,29 +1,40 @@
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { Component } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import AuthDataStore from "../../../Authentication/stores/AuthStore";
-import MyTheme from "../../../common/stores/ThemeStore";
-import VideoPlayer from "../../components/VideoPage";
+import LoadingWrapper from "../../../common/components/LoadingWrapper";
+import VideoDetailsComponent from "../../components/VideoPage";
 import SavedVideoStore from "../../stores/DataStore/SavedVideoDataStore";
 import VideoStore from "../../stores/DataStore/VideoDataStore";
 import TrendingModel from "../../stores/models/VideoModels/TrendingVideosModel";
 
 interface RouteParameter{
-    id:string
+    id:string,
+    location: any
 }
 
 interface Props extends RouteComponentProps<RouteParameter>{
-    AuthStore: AuthDataStore;
-    ThemeStore: MyTheme,
 }
 
-
-@inject('AuthStore','ThemeStore')
 @observer
 class VideoDetailsRoute extends Component<Props>{
 
+    componentDidMount(): void {
+        this.getVideoData();
+    }
+
+
+    getVideoData = () =>{
+        return this.getAllVideos(this.getVideoId());
+    }
+
     getVideoId = ():string =>{
+        
         return this.props.match.params.id;
+    }
+
+    getVideoStartTime = () =>{
+        let startTime = this.props.location.search || "?0";
+        return startTime.slice(1,startTime.length);
     }
 
     getApiStatus =() =>{
@@ -41,7 +52,7 @@ class VideoDetailsRoute extends Component<Props>{
         getCurrentVideoData(videoURL);
     }
 
-    renderVideos = () =>{
+    renderVideo = () =>{
         return VideoStore.currData;
     }
 
@@ -62,10 +73,19 @@ class VideoDetailsRoute extends Component<Props>{
         return findSavedVideo(videoId);
     }
 
+    renderSuccessUI =() =>{
+        return <VideoDetailsComponent details={this.renderVideo()} toggleSaved = {this.toggleSaved} findSaved={this.findSavedStatus} startTime = {this.getVideoStartTime()}/> 
+    }
+
     render() {
         return (
             <>
-                <VideoPlayer savedFunc ={this.toggleSaved} VideoId={this.getVideoId()} apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getAllVideos} VideosList={this.renderVideos()} savedStatus={this.findSavedStatus} {...this.props}/>
+                <LoadingWrapper 
+                    apiStatus={this.getApiStatus()}
+                    apiError={this.getErrorStatus()}
+                    onSuccess={this.renderSuccessUI}
+                    onRetry={this.getVideoData}
+                />
             </>
         )
     }

@@ -1,8 +1,9 @@
 import { inject, observer } from "mobx-react";
 import { Component } from "react";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
+import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import MyTheme from "../../../common/stores/ThemeStore";
-import HomePageComponent from "../../components/HomePage";
+import HomeComponent from "../../components/HomePage";
 import MyHomeDataStore from "../../stores/DataStore/HomeDataStore";
 
 interface Props{
@@ -14,6 +15,15 @@ interface Props{
 @inject('AuthStore','ThemeStore')
 @observer
 class HomeRoute extends Component<Props>{
+
+    componentDidMount() {
+        this.renderUI();
+    }
+
+    renderUI =() =>{
+        this.getHomeVideos();
+        this.filterFunc("");
+    }
 
     getApiStatus =() =>{
         const {currStatus}  = MyHomeDataStore;
@@ -40,10 +50,19 @@ class HomeRoute extends Component<Props>{
         return MyHomeDataStore.filterData;
     }
 
+    renderSuccessUI = () => {
+        return <HomeComponent homeVideoData = {this.renderVideos()} filterData={this.filterFunc}/>
+    }
+
     render() {
         return (
             <>
-                <HomePageComponent apiStatus={this.getApiStatus()} errorStatus={this.getErrorStatus()} activeVideos={this.renderVideos()} onLoading={this.getHomeVideos} setInputValue={this.filterFunc} {...this.props}/>
+                <LoadingWrapper
+                    apiStatus={this.getApiStatus()}
+                    apiError={this.getErrorStatus()}
+                    onSuccess={this.renderSuccessUI}
+                    onRetry={this.renderUI}
+                />
             </>
         )
     }

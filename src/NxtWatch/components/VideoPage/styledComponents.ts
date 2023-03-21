@@ -35,3 +35,15 @@ export const VideoDetailsContent = styled.div`
 export const ContentContainer = styled.div`
     margin: 20px;
 `
+
+export const VideoTitle = styled.p`
+    font-size: 17px;
+    margin-bottom: 20px;
+`
+
+export const VideoTime = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: ${props => props.theme.cardLightText};
+`

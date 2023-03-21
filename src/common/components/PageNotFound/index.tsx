@@ -20,7 +20,7 @@ const PageNotFoundPage = inject('AuthStore','ThemeStore')(observer((props:Props)
 
     const getInjectedProps = () => props as InjectedProps;
 
-    const getThemeStore = () => getInjectedProps().ThemeStore
+    const getThemeStore = () => getInjectedProps().ThemeStore;
 
     const getNotFoundImage = () =>{
         return getThemeStore().theme==='Light'? "https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-light-theme-img.png":"https://assets.ccbp.in/frontend/react-js/nxt-watch-not-found-dark-theme-img.png";

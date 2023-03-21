@@ -1,49 +1,59 @@
-import { observer } from 'mobx-react';
-import { Component, ReactNode} from 'react';
-import LoadingWrapper from '../../../common/components/LoadingWrapper';
-import SomethingWentWrongPage from '../../../common/components/SomethingWentWrong';
-import { API_STATUS } from '../../../common/enums/LoadingStateEnum';
-import HomeModel from '../../stores/models/VideoModels/HomeVideosModel';
-import NavbarComponent from '../Navbar';
-import SideBarComponent from '../SideBar';
-import HomeComponent from './HomeComponent';
-import {ContentWrapper,PageContentContainer} from './styledComponents'
+import { observable } from "mobx";
+import { observer } from "mobx-react";
+import { Component, ReactNode } from "react";
+import NoResultPage from "../../../common/components/NoSearchResults";
+import HomeModel from "../../stores/models/VideoModels/HomeVideosModel";
+import WrapperComponent from "../Wrapper";
+import HomePageBanner from "./HomeBanner";
+import HomeVideoCards from "./HomeVideoCard";
+import { InputBox, InputBoxDiv, SearchButton, StyledLink, VideoListContainer } from "./styledComponents";
 
-interface MyProps{
-    apiStatus: API_STATUS,
-    errorStatus: string,
-    onLoading: () => void,
-    setInputValue: (arg:string) => void,
-    activeVideos: Array<HomeModel>,
+interface Props{
+    homeVideoData: Array<HomeModel>,
+    filterData: (arg:string) => void
 }
 
 @observer
-class HomePageComponent extends Component<MyProps>{
+class HomeComponent extends Component<Props>{
 
-    componentDidMount() {
-        this.renderUI();
+    @observable currBannerStatus = true;
+
+    RenderHomeVideoCards = () => {
+        if(this.props.homeVideoData.length===0){
+            return <NoResultPage />
+        }
+        else{
+        return this.props.homeVideoData.map((eachData)=>{
+            const {id} = eachData;
+            return (
+                <StyledLink key={id} to={`/videos/${id}`}>
+                    <HomeVideoCards details={eachData} />
+                </StyledLink>
+            )
+        })
+        }
     }
 
-    renderUI =() =>{
-        this.props.onLoading();
-        this.props.setInputValue("");
+    handleInput = (e:React.ChangeEvent) =>{
+        const inputEl = e.target as HTMLInputElement;
+        this.props.filterData(inputEl.value);
     }
 
-    renderInitialUI = () =>{
-        return(
-            <>
-            </>
-        )
+    hideBannerFunc = ()=>{
+        this.currBannerStatus = false;
     }
 
-    renderSuccessUI = () => {
-        return <HomeComponent homeVideoData = {this.props.activeVideos} filterData={this.props.setInputValue}/>
-    }
-
-    getHomeVideosData= () =>{
+    renderWrappedComponent = () =>{
         return (
             <>
-                <SomethingWentWrongPage onRetry={this.renderUI} />
+            {this.currBannerStatus===false? <></>:<HomePageBanner bannerStatus={this.currBannerStatus} bannerFunc={this.hideBannerFunc}/>}
+                <InputBoxDiv>
+                    <InputBox type="text" id="searchValue" onChange={this.handleInput} placeholder="Search"/>
+                    <SearchButton type="button"><i className="fa-solid fa-magnifying-glass"></i></SearchButton>
+                </InputBoxDiv>
+                <VideoListContainer>
+                    {this.RenderHomeVideoCards()}
+                </VideoListContainer>
             </>
         )
     }
@@ -51,23 +61,9 @@ class HomePageComponent extends Component<MyProps>{
     render(): ReactNode {
         return (
             <div>
-                <NavbarComponent />
-                <ContentWrapper>
-                    <SideBarComponent />
-                    <PageContentContainer>
-                        <LoadingWrapper
-                        apiStatus={this.props.apiStatus}
-                        apiError={this.props.errorStatus}
-                        onInitial={this.renderInitialUI}
-                        onSuccess={this.renderSuccessUI}
-                        onRetry={this.getHomeVideosData}
-                        />
-                    </PageContentContainer>
-                </ContentWrapper>
+                <WrapperComponent renderWrappedComponent={this.renderWrappedComponent} />
             </div>
         )
     }
-    
 }
-
-export default HomePageComponent;
+export default HomeComponent;

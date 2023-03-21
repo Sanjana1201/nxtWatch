@@ -1,8 +1,9 @@
 import { inject, observer } from "mobx-react";
 import { Component } from "react";
 import AuthDataStore from "../../../Authentication/stores/AuthStore";
+import LoadingWrapper from "../../../common/components/LoadingWrapper";
 import MyTheme from "../../../common/stores/ThemeStore";
-import TrendingVideos from "../../components/TrendingPage";
+import TrendingPageComponent from "../../components/TrendingPage";
 import TrendingStore from "../../stores/DataStore/TrendingDataStore";
 
 interface Props{
@@ -14,6 +15,10 @@ interface Props{
 @inject('AuthStore','ThemeStore')
 @observer
 class TrendingRoute extends Component<Props>{
+
+    componentDidMount = ()=>{
+        this.getTrendingVideos();
+    }
 
     getApiStatus =() =>{
         const {currStatus}  = TrendingStore;
@@ -34,11 +39,22 @@ class TrendingRoute extends Component<Props>{
         return TrendingStore.currData;
     }
 
+    renderSuccessUI = () =>{
+        return(
+            <TrendingPageComponent details={this.renderVideos()}/>
+        )
+    }
+
     render() {
      
         return (
             <>
-                <TrendingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} TrendingVideosList = {this.renderVideos()} {...this.props}/>
+                <LoadingWrapper 
+                    apiStatus={this.getApiStatus()}
+                    apiError={this.getErrorStatus()}
+                    onSuccess={this.renderSuccessUI}
+                    onRetry={this.getTrendingVideos}
+                />
             </>
         )
     }

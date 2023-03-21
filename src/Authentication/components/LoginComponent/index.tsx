@@ -3,36 +3,44 @@ import { inject, observer } from 'mobx-react';
 import React, { Component, ReactNode } from 'react';
 import { withTranslation } from 'react-i18next';
 import LanguageSelector from '../../../common/components/LanguageSelector';
+import Loader from '../../../common/components/LoadingIcon';
 import TextInput from '../../../common/components/TextInput';
 import MyTheme from '../../../common/stores/ThemeStore';
 import DarkModeIcon from '../../../NxtWatch/icons/nxtWaveIcon/darkModeIcon';
 import LightModeIcon from '../../../NxtWatch/icons/nxtWaveIcon/lightModeIcon';
-import AuthDataStore, { LoginRequestObject } from '../../stores/AuthStore';
+import { LoginRequestObject } from '../../stores/AuthStore';
 import { CustomCheckbox, Errorp, ErrorWrapper, IconDiv, LoginButton, LoginCheckboxText, LoginDiv, LoginFieldsContainer, LoginWrapper } from './styledComponents';
-
 
 interface Props{
     handleLoginClick: (requestObject:LoginRequestObject) => void;
-    AuthStore: AuthDataStore;
-    ThemeStore: MyTheme;
     errorMsg: string;
     t:any
 }
 
-@inject('AuthStore','ThemeStore')
+interface InjectedProps extends Props{
+    ThemeStore: MyTheme;
+}
+
+@inject('ThemeStore')
 @observer
 class LoginAppComponent extends Component<Props>{
 
     @observable username: string;
     @observable password: string;
     @observable showPassword: boolean;
+    @observable loading: boolean;
     
     constructor(props:any) {
         super(props);
         this.username = ""
         this.password = "";
         this.showPassword = false;
+        this.loading = false;
     }
+
+    getInjectedProps = () => this.props as InjectedProps;
+
+    getThemeStore = () => this.getInjectedProps().ThemeStore;
 
     onChangeUserName = (value: string) => {
         this.username = value;
@@ -48,13 +56,17 @@ class LoginAppComponent extends Component<Props>{
             username: this.username,
             password: this.password
         }
-        handleLoginClick(requestObject)
+        this.loading = true;
+        handleLoginClick(requestObject);
     }
 
     handlePassword = () =>{
         this.showPassword=!this.showPassword
     }
 
+    handleIcon = (theme:string) => {
+        return theme==='Light'? <LightModeIcon />:<DarkModeIcon />
+    }
 
     render(): ReactNode {
         const { t } = this.props;
@@ -64,7 +76,7 @@ class LoginAppComponent extends Component<Props>{
             <LanguageSelector />
                 <LoginDiv>
                     <IconDiv>
-                        {this.props.ThemeStore.theme==='Light'? <LightModeIcon />:<DarkModeIcon />}
+                        {this.handleIcon(this.getThemeStore().theme)}
                     </IconDiv>
                     <LoginFieldsContainer>
                         <div>
@@ -75,7 +87,7 @@ class LoginAppComponent extends Component<Props>{
                         </div>
                         <LoginCheckboxText><CustomCheckbox type="checkbox" id="MyCheckbox" onChange = {this.handlePassword} />{t("showPassword")}</LoginCheckboxText>
                     </LoginFieldsContainer>
-                <LoginButton type="button" onClick={this.onClickLogin}><b>{t("Login")}</b></LoginButton>
+                <LoginButton type="button" onClick={this.onClickLogin}>{this.loading? <Loader/>: <b>{t("Login")}</b>}</LoginButton>
                 <ErrorWrapper>
                 {this.props.errorMsg===""? <></>:<Errorp>*{this.props.errorMsg}</Errorp>}
                 </ErrorWrapper>

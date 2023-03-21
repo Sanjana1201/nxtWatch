@@ -1,20 +1,28 @@
 import { ThreeDots } from "react-loader-spinner"
+import WrapperComponent from "../../../NxtWatch/components/Wrapper";
 import { LoadingWrapper } from "./styledComponents";
 
 
 const Loader =() =>{
-    return (
-        <>
-        <LoadingWrapper>
-        <div className="loader-container" data-testid="loader">
-                 <ThreeDots
+
+    const renderWrappedComponent = () =>{
+        return (
+            <LoadingWrapper>
+                <div className="loader-container" data-testid="loader">
+                    <ThreeDots
                       color = "black"
                       height={80}
                       width={80}
                     />
 
-            </div>
-        </LoadingWrapper>
+                </div>
+            </LoadingWrapper>
+        )
+    }
+
+    return (
+        <>
+            <WrapperComponent renderWrappedComponent={renderWrappedComponent} />
         </>
     )
 }

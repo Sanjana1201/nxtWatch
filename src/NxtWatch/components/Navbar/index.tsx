@@ -3,11 +3,12 @@ import { inject, observer } from 'mobx-react';
 import LanguageSelector from '../../../common/components/LanguageSelector';
 import { RemoveCookie } from '../../../common/utils/AuthUtil';
 import LightModeIcon from '../../icons/nxtWaveIcon/lightModeIcon';
-import {NavbarWrapper,ProfileImg,CustomWhiteBgButton,NavlinksContainer,ThemeButton, DarkIcon} from './styledComponents'
+import {NavbarWrapper,ProfileImg,CustomWhiteBgButton,NavlinksContainer,ThemeButton, DarkIcon, PopUpContainer, CancelButton, ConfirmButton, PopupButtonContainer} from './styledComponents'
 import {useTranslation} from 'react-i18next';
 import DarkModeIcon from '../../icons/nxtWaveIcon/darkModeIcon';
 import MyTheme from '../../../common/stores/ThemeStore';
 import AuthDataStore from '../../../Authentication/stores/AuthStore';
+import Popup from 'reactjs-popup';
 
 interface InjectedProps extends Props {
     AuthStore : AuthDataStore,
@@ -49,7 +50,28 @@ const NavbarComponent = inject('AuthStore','ThemeStore')(observer((props: Props)
             <LanguageSelector />
                 <ThemeButton type="button" onClick={handleTheme}>{getThemeStore().theme==="Light"? (<i className="fa-solid fa-moon"></i>):(<DarkIcon className="fa-solid fa-sun"></DarkIcon>)}</ThemeButton>
                 <ProfileImg src = "https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png" alt ="profile" />
-                <CustomWhiteBgButton MyColor="#3b82f6" onClick={handleLogout}>{t('logout')}</CustomWhiteBgButton>
+                <Popup 
+                    modal
+                    trigger={
+                        <CustomWhiteBgButton MyColor="#3b82f6" >{t('logout')}</CustomWhiteBgButton>
+                    }
+                    className="popup-content"
+                >
+                {(close:any) => (
+                    <>
+                    <PopUpContainer>
+                        Are you sure you want to logout?
+                        <PopupButtonContainer>
+                        <CancelButton type="button" className="trigger-button" onClick={() => close()}>
+                            Cancel
+                        </CancelButton>
+                        <ConfirmButton onClick={handleLogout}>Confirm</ConfirmButton>
+                        </PopupButtonContainer>
+                    </PopUpContainer>
+                    </>
+                )}
+                </Popup>
+                
             </NavlinksContainer>
         </NavbarWrapper>
 

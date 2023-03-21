@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { API_STATUS } from '../../enums/LoadingStateEnum';
 import Loader from '../LoadingIcon';
+import SomethingWentWrongPage from '../SomethingWentWrong';
 
 interface Props {
     apiStatus: API_STATUS
     apiError: string
-    onInitial: () => void
     onSuccess: () => void
     onRetry: () => void
 }
@@ -14,11 +14,11 @@ class LoadingWrapper extends Component<Props> {
 
     renderFailureView = () => {
         const { onRetry } = this.props;
-        return (<div>
-            {onRetry()}
-            {/* <p>{apiError}</p>
-            <Button buttonText='Retry' onClickButton={onRetry}/> */}
-        </div>)
+        return (
+        <>
+            <SomethingWentWrongPage onRetry={onRetry} />
+        </>
+        )
     }
 
     renderLoadingView = () => {
@@ -26,12 +26,10 @@ class LoadingWrapper extends Component<Props> {
     }
 
     renderRespectiveUI = () => {
-        const { apiStatus, onSuccess, onInitial } = this.props
-        const { INITIAL, LOADING, SUCCESS, FAILURE } = API_STATUS
+        const { apiStatus, onSuccess } = this.props
+        const { LOADING, SUCCESS, FAILURE } = API_STATUS
 
         switch  (apiStatus) {
-            case INITIAL:
-                return onInitial();
             case LOADING:
                 return this.renderLoadingView()
             case SUCCESS:
