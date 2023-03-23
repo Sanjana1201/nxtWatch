@@ -53,7 +53,6 @@ class GamingRoute extends Component<Props>{
                 onRetry={this.getGamingVideos}
             />
         </>
-            // <GamingVideos apiStatus={this.getApiStatus()} apiError={this.getErrorStatus()} getVideo={this.getTrendingVideos} GamingVideosList={this.renderVideos()} {...this.props}/>
         )
     }
 }
