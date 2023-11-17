@@ -81,9 +81,11 @@ class LoginAppComponent extends Component<Props>{
                     <LoginFieldsContainer>
                         <div>
                             <TextInput placeholder='Enter your name' label={t("username")} onChange={this.onChangeUserName} type = "text"/>
+                            <span style={{fontWeight:"300",fontSize:"13px"}}>hint: rahul</span>
                         </div>
                         <div>
                             <TextInput placeholder='Enter your password' label={t("password")} onChange={this.onChangePassword} type={this.showPassword? "text":"password"}/>
+                            <span style={{fontWeight:"300",fontSize:"13px"}}>hint: rahul@2021</span>
                         </div>
                         <LoginCheckboxText><CustomCheckbox type="checkbox" id="MyCheckbox" onChange = {this.handlePassword} />{t("showPassword")}</LoginCheckboxText>
                     </LoginFieldsContainer>
